@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "294705622166",
+    "project_id": "flutter-firebase-appjam",
+    "storage_bucket": "flutter-firebase-appjam.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:294705622166:android:d397ad83b59afc70a026b7",
+        "android_client_info": {
+          "package_name": "com.example.flutter_application_1"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyALMfD7-Gcwx5uAv5GlfNtrpab4qtE_lw8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
