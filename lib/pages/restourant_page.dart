@@ -2,51 +2,110 @@ import 'package:flutter/material.dart';
 
 class RestaurantPage extends StatelessWidget {
   final String selectedDiet;
-  final List<String> selectedDiseases;
 
   const RestaurantPage({
-    Key? key,
-    required this.selectedDiet,
-    required this.selectedDiseases,
-  }) : super(key: key);
+      Key? key,
+  required this.selectedDiet,
+}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    List<Restaurant> allRestaurants = [
-      Restaurant(
-        title: 'Vejetaryen Restoran',
-        imagePath: 'images/salata.jpg',
-        address: '123 Veggie St., İstanbul',
-        diets: ['Vejetaryen', 'Normal'],
-      ),
-      Restaurant(
-        title: 'Vegan Restoran',
-        imagePath: 'images/makarna.jpg',
-        address: '456 Vegan Ave., İstanbul',
-        diets: ['Vegan', 'Normal'],
-      ),
-    ];
-    List<Restaurant> filteredRestaurants = allRestaurants.where((restaurant) {
-      return restaurant.diets.contains(selectedDiet) &&
-          !restaurant.diets.any((disease) => selectedDiseases.contains(disease));
-    }).toList();
-
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Diyet Restoranları'),
+        title: const Text('Sizin için önerilen restoranlar'),
       ),
-      body: ListView.builder(
-        itemCount: filteredRestaurants.length,
-        itemBuilder: (context, index) {
-          // Filtrelenmiş restoranları oluştur.
-          Restaurant restaurant = filteredRestaurants[index];
-          return _buildRestaurantItem(context, restaurant);
-        },
+      body: ListView(
+        children: _buildRestaurantList(),
       ),
     );
   }
 
-  Widget _buildRestaurantItem(BuildContext context, Restaurant restaurant) {
+  List<Widget> _buildRestaurantList() {
+    List<Widget> restaurantWidgets = [];
+    if (selectedDiet == 'Vejetaryen') {
+      restaurantWidgets = [
+        _buildRestaurantItem(
+          'Vejetaryen Restoran',
+          'images/salata.png',
+          '123 Veggie St., İstanbul',
+        ),
+        _buildRestaurantItem(
+          'Vegan Restoran',
+          'images/makarna.png',
+          '456 Vegan Ave., İstanbul',
+        ),
+      ];
+    } else if (selectedDiet == 'Vegan') {
+      restaurantWidgets = [
+        _buildRestaurantItem(
+          'Vegan Restoran',
+          'images/makarna.png',
+          '456 Vegan Ave., İstanbul',
+        ),
+      ];
+    } else if (selectedDiet == 'Pesketaryen') {
+      restaurantWidgets = [
+        _buildRestaurantItem(
+          'Vejetaryen Restoran',
+          'images/salata.png',
+          '123 Veggie St., İstanbul',
+        ),
+        _buildRestaurantItem(
+          'Vegan Restoran',
+          'images/makarna.png',
+          '456 Vegan Ave., İstanbul',
+        ),
+        _buildRestaurantItem(
+          'Pesketaryen Restoran',
+          'images/pizza.png',
+          '789 Pescatarian Blvd., İstanbul',
+        ),
+      ];
+    } else if (selectedDiet == 'Ketojenik Diyet') {
+      restaurantWidgets = [
+        _buildRestaurantItem(
+          'Ketojenik Restoran',
+          'images/kofte.png',
+          '101 Keto St., İstanbul',
+        ),
+      ];
+    } else {
+      restaurantWidgets = [
+        _buildRestaurantItem(
+          'Normal Restoran',
+          'images/meat.png',
+          '321 Normal Rd., İstanbul',
+        ),
+        _buildRestaurantItem(
+          'Vejetaryen Restoran',
+          'images/salata.png',
+          '123 Veggie St., İstanbul',
+        ),
+        _buildRestaurantItem(
+          'Vegan Restoran',
+          'images/makarna.png',
+          '456 Vegan Ave., İstanbul',
+        ),
+        _buildRestaurantItem(
+          'Pesketaryen Restoran',
+          'images/pizza.png',
+          '789 Pescatarian Blvd., İstanbul',
+        ),
+        _buildRestaurantItem(
+          'Ketojenik Restoran',
+          'images/kofte.png',
+          '101 Keto St., İstanbul',
+        ),
+      ];
+    }
+    return restaurantWidgets;
+  }
+
+  Widget _buildRestaurantItem(
+      String title,
+      String imagePath,
+      String address,
+      ) {
     return Card(
       elevation: 2.0,
       margin: const EdgeInsets.all(8.0),
@@ -56,7 +115,7 @@ class RestaurantPage extends StatelessWidget {
           ClipRRect(
             borderRadius: BorderRadius.circular(8.0),
             child: Image.asset(
-              restaurant.imagePath,
+              imagePath,
               height: 200.0,
               fit: BoxFit.cover,
             ),
@@ -67,7 +126,7 @@ class RestaurantPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  restaurant.title,
+                  title,
                   style: const TextStyle(
                     fontSize: 20.0,
                     fontWeight: FontWeight.bold,
@@ -75,7 +134,7 @@ class RestaurantPage extends StatelessWidget {
                 ),
                 const SizedBox(height: 8.0),
                 Text(
-                  'Adres: ${restaurant.address}',
+                  'Adres: $address',
                   style: const TextStyle(
                     fontStyle: FontStyle.italic,
                   ),
@@ -89,16 +148,8 @@ class RestaurantPage extends StatelessWidget {
   }
 }
 
-class Restaurant {
-  final String title;
-  final String imagePath;
-  final String address;
-  final List<String> diets;
-
-  Restaurant({
-    required this.title,
-    required this.imagePath,
-    required this.address,
-    required this.diets,
-  });
+void main() {
+  runApp(const MaterialApp(
+    home: RestaurantPage(selectedDiet: ''),
+  ));
 }

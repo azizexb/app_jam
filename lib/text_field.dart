@@ -21,6 +21,8 @@ class MyTextField extends StatelessWidget {
       child: TextFormField(
         obscureText: obscureText,
         decoration: InputDecoration(
+          filled: true,
+          fillColor: Colors.white,
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(25),
             borderSide: const BorderSide(
